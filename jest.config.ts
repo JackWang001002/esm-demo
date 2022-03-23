@@ -2,6 +2,17 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
+const esModules = [
+  'zx',
+  'globby',
+  'globby/node_modules/slash',
+  'slash',
+  'node-fetch',
+  'data-uri-to-buffer',
+  'fetch-blob',
+  'formdata-polyfill',
+  'chalk'
+].join('|');
 
 export default {
   // All imported modules in your tests should be mocked automatically
@@ -93,7 +104,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  // preset: 'js-with-ts	',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -174,7 +185,8 @@ export default {
   // A map from regular expressions to paths to transformers
   // transform: undefined,
   transform: {
-    '^.+\\.(ts|tsx|js|jsx|mjs)$': 'ts-jest',
+    '^.+\\.(ts|tsx|jsx)$': 'ts-jest',
+    '^.+\\.(m?js)$': 'babel-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
@@ -182,6 +194,7 @@ export default {
   //   "/node_modules/",
   //   "\\.pnp\\.[^\\/]+$"
   // ],
+  transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
